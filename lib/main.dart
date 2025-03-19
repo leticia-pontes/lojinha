@@ -28,12 +28,16 @@ class DetalheProduto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          FotoProduto(),
-          TituloProduto(nome: "Fone de Ouvido", preco: 218.69),
-        ],
-      )
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            FotoProduto(imagem: "assets/suco.jpg"),
+            TituloProduto(nome: "Fone de Ouvido", preco: 218.69),
+            AcoesProduto(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -49,14 +53,13 @@ class TituloProduto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child:
-          Container(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            child: Text(
-                nome,
-                style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(right: 60.0),
+          child: Text(
+            nome,
+            style: TextStyle(fontWeight: FontWeight.bold),
           )
         ),
         Text("R\$ ${preco.toStringAsFixed(2)}"),
@@ -71,15 +74,45 @@ class TituloProduto extends StatelessWidget {
   }
 }
 
+class AcoesProduto extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 60),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(onPressed: () { print("Favoritar"); }, icon: Icon(Icons.favorite)),
+          IconButton(onPressed: () { print("Comentário"); }, icon: Icon(Icons.comment)),
+          IconButton(onPressed: () { print("Compartilhar"); }, icon: Icon(Icons.send)),
+        ],
+      ),
+    );
+  }
+}
+
 class FotoProduto extends StatelessWidget {
+
+  final String imagem;
+
+  FotoProduto({super.key, required String this.imagem});
   
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      "assets/fone.jpg",
-      width: 350,
-      height: 270,
-      fit: BoxFit.fill
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.blue.shade800,
+          width: 3
+        ),
+      ),
+      child: Image.asset(
+        imagem,
+        width: 270,
+        height: 350,
+        fit: BoxFit.fill
+      ),
     );
   }
 }
