@@ -7,7 +7,6 @@ void main() {
 class LayoutProdutoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       title: "Detalhes do Produto",
       home: Scaffold(
@@ -32,9 +31,10 @@ class DetalheProduto extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            FotoProduto(imagem: "assets/suco.jpg"),
             TituloProduto(nome: "Fone de Ouvido", preco: 218.69),
+            FotoProduto(imagem: "assets/suco.jpg"),
             AcoesProduto(),
+            DescricaoProduto(descricao: "herd police aside wrote apart torn stuck no completely anywhere half lower loss later enough many selection rock remove shadow opposite promised cannot branch")
           ],
         ),
       ),
@@ -53,14 +53,11 @@ class TituloProduto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 60.0),
-          child: Text(
-            nome,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          )
+        Text(
+          nome,
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text("R\$ ${preco.toStringAsFixed(2)}"),
         IconButton(
@@ -74,14 +71,42 @@ class TituloProduto extends StatelessWidget {
   }
 }
 
+class DescricaoProduto extends StatelessWidget {
+
+  final String descricao;
+
+  DescricaoProduto({super.key, required String this.descricao});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
+      ),
+      child: Text(
+        descricao,
+        textAlign: TextAlign.justify,
+        style: TextStyle(
+          fontSize: 18,
+        ),
+      )
+    );  
+  }
+}
+
 class AcoesProduto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 60),
+      margin: EdgeInsets.only(right: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           IconButton(onPressed: () { print("Favoritar"); }, icon: Icon(Icons.favorite)),
           IconButton(onPressed: () { print("Comentário"); }, icon: Icon(Icons.comment)),
